@@ -10,12 +10,13 @@ const generateGrid = () => {
 generateGrid();
 
 const turn = (direction) => {
+  console.log("br");
   switch (direction) {
     case "right":
       for (let row = 0; row < grid.length; row++) {
         for (let col = grid[row].length - 1; col >= 0; col--) {
           //iterates through every space, right to left and top to bottom
-          //any call to move() is followed by this for loop breaking so you dont move the same block twice
+          //any call to moveAnimation()) is followed by this for loop breaking so you dont move the same block twice
           //console.log([row, col]);
 
           if (grid[row][col] != 0) {
@@ -29,7 +30,7 @@ const turn = (direction) => {
               if (colRight == grid[row].length) {
                 if (grid[row][colRight - 1] == 0) {
                   //accounts for the possibility of the space alr being on the right and also for the possibility of there being a normal block already there
-                  move([row, col], direction, colRight - col - 1);
+                  moveAnimation([row, col], direction, colRight - col - 1);
                   grid[row][colRight - 1] = grid[row][col];
                   grid[row][col] = 0;
                 }
@@ -37,7 +38,7 @@ const turn = (direction) => {
               }
               if (grid[row][colRight] == grid[row][col]) {
                 //if there next value to the right is the same as the current space
-                move([row, col], direction, colRight - col - 1);
+                moveAnimation([row, col], direction, colRight - col - 1);
                 grid[row][colRight] *= 2;
                 grid[row][col] = 0;
                 break;
@@ -45,7 +46,7 @@ const turn = (direction) => {
                 //the values must be different and nonzero
                 if (colRight != col + 1) {
                   //check if theyre neighbors cause then you dont need to move
-                  move([row, col], direction, colRight - col - 1);
+                  moveAnimation([row, col], direction, colRight - col - 1);
                   grid[row][colRight - 1] = grid[row][col];
                   grid[row][col] = 0;
                 }
@@ -68,14 +69,14 @@ const turn = (direction) => {
               //iterates through all the spaces right of selected space, right to left
               if (colLeft == -1) {
                 if (grid[row][colLeft + 1] == 0) {
-                  move([row, col], direction, col - colLeft - 1);
+                  moveAnimation([row, col], direction, col - colLeft - 1);
                   grid[row][colLeft + 1] = grid[row][col];
                   grid[row][col] = 0;
                 }
                 break;
               } else if (grid[row][colLeft] == grid[row][col]) {
                 //if there next value to the left is the same as the current space
-                move([row, col], direction, col - colLeft + 1);
+                moveAnimation([row, col], direction, col - colLeft + 1);
                 grid[row][colLeft] *= 2;
                 grid[row][col] = 0;
                 break;
@@ -83,7 +84,7 @@ const turn = (direction) => {
                 //the values must be different and nonzero
                 if (colLeft != col + 1) {
                   //check if theyre neighbors cause then you dont need to move
-                  move([row, col], direction, col - colLeft - 1);
+                  moveAnimation([row, col], direction, col - colLeft - 1);
                   grid[row][colLeft + 1] = grid[row][col];
                   grid[row][col] = 0;
                 }
@@ -98,7 +99,7 @@ const turn = (direction) => {
       for (let col = 0; col < grid[0].length; col++) {
         for (let row = 0; row < grid.length; row++) {
           //iterates through every space, top to bottom and left to right
-          //any call to move() is followed by this for loop breaking so you dont move the same block twice
+          //any call to moveAnimation() is followed by this for loop breaking so you dont move the same block twice
           //console.log([row, col]);
 
           if (grid[row][col] != 0) {
@@ -107,7 +108,7 @@ const turn = (direction) => {
               if (rowAbove == -1) {
                 if (grid[rowAbove + 1][col] == 0) {
                   //accounts for the possibility of the space alr being on the right and also for the possibility of there being a normal block already there
-                  move([row, col], direction, row - rowAbove - 1);
+                  moveAnimation([row, col], direction, row - rowAbove - 1);
                   grid[rowAbove + 1][col] = grid[row][col];
                   grid[row][col] = 0;
                 }
@@ -115,7 +116,7 @@ const turn = (direction) => {
               }
               if (grid[rowAbove][col] == grid[row][col]) {
                 //if there next value to the right is the same as the current space
-                move([row, col], direction, row - rowAbove);
+                moveAnimation([row, col], direction, row - rowAbove);
                 grid[rowAbove][col] *= 2;
                 grid[row][col] = 0;
                 break;
@@ -123,7 +124,7 @@ const turn = (direction) => {
                 //the values must be different and nonzero
                 if (rowAbove != row - 1) {
                   //check if theyre neighbors cause then you dont need to move
-                  move([row, col], direction, row - rowAbove - 1);
+                  moveAnimation([row, col], direction, row - rowAbove - 1);
                   grid[rowAbove + 1][col] = grid[row][col];
                   grid[row][col] = 0;
                 }
@@ -138,7 +139,7 @@ const turn = (direction) => {
       for (let col = 0; col < grid[0].length; col++) {
         for (let row = grid.length - 1; row >= 0; row--) {
           //iterates through every space, bottom to top and left to right
-          //any call to move() is followed by this for loop breaking so you dont move the same block twice
+          //any call to moveAnimation() is followed by this for loop breaking so you dont move the same block twice
           //console.log([row, col]);
 
           if (grid[row][col] != 0) {
@@ -147,7 +148,7 @@ const turn = (direction) => {
               if (rowBelow == grid.length) {
                 if (grid[rowBelow - 1][col] == 0) {
                   //accounts for the possibility of the space alr being on the right and also for the possibility of there being a normal block already there
-                  move([row, col], direction, rowBelow - row - 1);
+                  moveAnimation([row, col], direction, rowBelow - row - 1);
                   grid[rowBelow - 1][col] = grid[row][col];
                   grid[row][col] = 0;
                 }
@@ -155,7 +156,7 @@ const turn = (direction) => {
               }
               if (grid[rowBelow][col] == grid[row][col]) {
                 //if there next value to the right is the same as the current space
-                move([row, col], direction, rowBelow - row);
+                moveAnimation([row, col], direction, rowBelow - row);
                 grid[rowBelow][col] *= 2;
                 grid[row][col] = 0;
                 break;
@@ -163,7 +164,7 @@ const turn = (direction) => {
                 //the values must be different and nonzero
                 if (rowBelow != row + 1) {
                   //check if theyre neighbors cause then you dont need to move
-                  move([row, col], direction, rowBelow - row - 1);
+                  moveAnimation([row, col], direction, rowBelow - row - 1);
                   grid[rowBelow - 1][col] = grid[row][col];
                   grid[row][col] = 0;
                 }
@@ -177,7 +178,7 @@ const turn = (direction) => {
   }
 };
 
-const move = ([row, col], direction, spaces) => {
+const moveAnimation = ([row, col], direction, spaces) => {
   /* //not sure why i made this section of code this shit is probably redundant
   let newTile = [];
   switch (direction) {
@@ -196,12 +197,12 @@ const move = ([row, col], direction, spaces) => {
   }
   */
   //console.log("moved");
-  console.log("moved", row, col, direction, spaces);
+  //console.log("moved", row, col, direction, spaces);
   //purely aesthetic
 };
 
 const changeTile = (row, col, newValue) => {
-  console.log(row.toString() + col.toString());
+  //console.log(row.toString() + col.toString());
   document.getElementById(row.toString() + col.toString()).textContent =
     newValue;
 };
@@ -214,7 +215,7 @@ grid[0][3] = 1;
 //turn("right");
 //turn("left");
 //turn("up");
-turn("down");
+//turn("down");
 console.log(grid);
 
 //test
@@ -228,3 +229,21 @@ function testFunctionMakeAllZeros() {
 }
 
 testFunctionMakeAllZeros();
+
+//detects when a key is pressed and calls turn()
+document.addEventListener("keydown", (event) => {
+  switch (event.code) {
+    case "ArrowUp":
+      turn("up");
+      break;
+    case "ArrowDown":
+      turn("down");
+      break;
+    case "ArrowLeft":
+      turn("left");
+      break;
+    case "ArrowRight":
+      turn("right");
+      break;
+  }
+});
