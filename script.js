@@ -102,7 +102,7 @@ const turn = (direction) => {
           //console.log([row, col]);
 
           if (grid[row][col] != 0) {
-            for (let rowAbove = row - 1; rowAbove <= -1; rowAbove--) {
+            for (let rowAbove = row - 1; rowAbove >= -1; rowAbove--) {
               //iterates through all the spaces above of selected space, bottop to top
               if (rowAbove == -1) {
                 if (grid[rowAbove + 1][col] == 0) {
@@ -115,11 +115,11 @@ const turn = (direction) => {
               }
               if (grid[rowAbove][col] == grid[row][col]) {
                 //if there next value to the right is the same as the current space
-                move([row, col], direction, row - rowAbove - 1);
+                move([row, col], direction, row - rowAbove);
                 grid[rowAbove][col] *= 2;
                 grid[row][col] = 0;
                 break;
-              } else if (grid[row][rowAbove] != 0) {
+              } else if (grid[rowAbove][col] != 0) {
                 //the values must be different and nonzero
                 if (rowAbove != row - 1) {
                   //check if theyre neighbors cause then you dont need to move
@@ -136,35 +136,35 @@ const turn = (direction) => {
       break;
     case "down":
       for (let col = 0; col < grid[0].length; col++) {
-        for (let row = 0; row < grid.length; row++) {
-          //iterates through every space, top to bottom and left to right
+        for (let row = grid.length - 1; row >= 0; row--) {
+          //iterates through every space, bottom to top and left to right
           //any call to move() is followed by this for loop breaking so you dont move the same block twice
           //console.log([row, col]);
 
           if (grid[row][col] != 0) {
-            for (let rowAbove = row + 1; rowAbove <= grid.length; rowAbove++) {
-              //iterates through all the spaces right of selected space, left to right
-              if (rowAbove == grid[row].length) {
-                if (grid[row][rowAbove - 1] == 0) {
+            for (let rowBelow = row + 1; rowBelow <= grid.length; rowBelow++) {
+              //iterates through all the spaces above of selected space, top to bottom
+              if (rowBelow == grid.length) {
+                if (grid[rowBelow - 1][col] == 0) {
                   //accounts for the possibility of the space alr being on the right and also for the possibility of there being a normal block already there
-                  move([row, col], direction, rowAbove - col - 1);
-                  console.log(grid[row][rowAbove - 1]);
-                  grid[row][rowAbove - 1] = grid[row][col];
+                  move([row, col], direction, rowBelow - row - 1);
+                  grid[rowBelow - 1][col] = grid[row][col];
                   grid[row][col] = 0;
                 }
+                break;
               }
-              if (grid[row][rowAbove] == grid[row][col]) {
+              if (grid[rowBelow][col] == grid[row][col]) {
                 //if there next value to the right is the same as the current space
-                move([row, col], direction, rowAbove - col - 1);
-                grid[row][rowAbove] *= 2;
+                move([row, col], direction, rowBelow - row);
+                grid[rowBelow][col] *= 2;
                 grid[row][col] = 0;
                 break;
-              } else if (grid[row][rowAbove] != 0) {
+              } else if (grid[rowBelow][col] != 0) {
                 //the values must be different and nonzero
-                if (rowAbove != col + 1) {
+                if (rowBelow != row + 1) {
                   //check if theyre neighbors cause then you dont need to move
-                  move([row, col], direction, rowAbove - col - 1);
-                  grid[row][rowAbove - 1] = grid[row][col];
+                  move([row, col], direction, rowBelow - row - 1);
+                  grid[rowBelow - 1][col] = grid[row][col];
                   grid[row][col] = 0;
                 }
                 break;
@@ -184,10 +184,12 @@ const move = ([row, col], direction, spaces) => {
 };
 
 grid[1][2] = 1;
-grid[1][1] = 1;
+grid[2][3] = 1;
 grid[1][3] = 1;
+grid[0][3] = 1;
 
 //turn("right");
 //turn("left");
 //turn("up");
+turn("down");
 console.log(grid);
