@@ -25,6 +25,7 @@ div.game {
   height: 150px;
   border: 3px solid;
   box-sizing: border-box;
+  font-size: 50px;
 }
 
 .left-half {
