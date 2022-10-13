@@ -178,9 +178,32 @@ const turn = (direction) => {
 };
 
 const move = ([row, col], direction, spaces) => {
+  /* //not sure why i made this section of code this shit is probably redundant
+  let newTile = [];
+  switch (direction) {
+    case "right":
+      newTile = [row, col + spaces];
+      break;
+    case "left":
+      newTile = [row, col - spaces];
+      break;
+    case "up":
+      newTile = [row + spaces, col];
+      break;
+    case "down":
+      newTile = [row - spaces, col];
+      break;
+  }
+  */
   //console.log("moved");
   console.log("moved", row, col, direction, spaces);
   //purely aesthetic
+};
+
+const changeTile = (row, col, newValue) => {
+  console.log(row.toString() + col.toString());
+  document.getElementById(row.toString() + col.toString()).textContent =
+    newValue;
 };
 
 grid[1][2] = 1;
@@ -193,3 +216,15 @@ grid[0][3] = 1;
 //turn("up");
 turn("down");
 console.log(grid);
+
+//test
+
+function testFunctionMakeAllZeros() {
+  for (let x = 0; x < 4; x++) {
+    for (let y = 0; y < 4; y++) {
+      changeTile(x, y, 0);
+    }
+  }
+}
+
+testFunctionMakeAllZeros();
