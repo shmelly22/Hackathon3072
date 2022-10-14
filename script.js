@@ -1,15 +1,33 @@
 let grid = [];
 
 //generates a 2d array filled with 0
-const generateGrid = () => {
+function generateGrid() {
   for (let i = 0; i < 4; i++) {
     //array.fill fills the array with 0s
     grid.push(new Array(4).fill(0));
   }
-};
+}
 generateGrid();
 
-const turn = (direction) => {
+function spawnRandomTiles() {
+  //needs to be made
+}
+
+function resetGrid() {
+  for (let x = 0; x < 4; x++) {
+    for (let y = 0; y < 4; y++) {
+      changeTile(x, y, 0);
+    }
+  }
+  grid[3][0] = 3;
+  changeTile(3, 0, 3);
+  grid[3][1] = 3;
+  changeTile(3, 1, 3);
+}
+
+resetGrid();
+
+function turn(direction) {
   console.log("br");
   switch (direction) {
     case "right":
@@ -158,9 +176,13 @@ const turn = (direction) => {
               }
               if (grid[rowAbove][col] == grid[row][col]) {
                 //if there next value to the right is the same as the current space
-                move([row, col], direction, row - rowAbove),
+                move(
+                  [row, col],
+                  direction,
+                  row - rowAbove,
                   [rowAbove, col],
-                  grid[rowAbove][col] * 2;
+                  grid[rowAbove][col] * 2
+                );
                 grid[rowAbove][col] *= 2;
                 grid[row][col] = 0;
                 break;
@@ -244,9 +266,9 @@ const turn = (direction) => {
       }
       break;
   }
-};
+}
 
-const move = ([row, col], direction, spaces, [newRow, newCol], newValue) => {
+function move([row, col], direction, spaces, [newRow, newCol], newValue) {
   /* //changed parameters so this is redundant but im leaving it in just in case
   let newTile = [];
   switch (direction) {
@@ -269,31 +291,22 @@ const move = ([row, col], direction, spaces, [newRow, newCol], newValue) => {
 
   changeTile(newRow, newCol, newValue);
   changeTile(row, col, 0);
-};
+  spawnRandomTiles();
+}
 
-const changeTile = (row, col, newValue) => {
+function changeTile(row, col, newValue) {
   //console.log(row.toString() + col.toString());
   document.getElementById(row.toString() + col.toString()).textContent =
     newValue;
-};
+}
 
 //turn("right");
 //turn("left");
 //turn("up");
 //turn("down");
-console.log(grid);
+//console.log(grid);
 
 //test
-
-function testFunctionMakeAllZeros() {
-  for (let x = 0; x < 4; x++) {
-    for (let y = 0; y < 4; y++) {
-      changeTile(x, y, 0);
-    }
-  }
-}
-
-testFunctionMakeAllZeros();
 
 //detects when a key is pressed and calls turn()
 document.addEventListener("keydown", (event) => {
@@ -313,10 +326,3 @@ document.addEventListener("keydown", (event) => {
   }
   console.log(grid);
 });
-
-grid[1][2] = 1;
-changeTile(1, 2, 1);
-grid[2][2] = 1;
-changeTile(2, 2, 1);
-grid[3][3] = 1;
-changeTile(3, 3, 1);
