@@ -148,7 +148,7 @@ function turn(direction) {
                 break;
               } else if (grid[row][colLeft] != 0) {
                 //the values must be different and nonzero
-                if (colLeft != col + 1) {
+                if (colLeft != col - 1) {
                   //check if theyre neighbors cause then you dont need to move
                   move(
                     [row, col],
