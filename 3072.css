@@ -40,3 +40,12 @@ body {
   padding: 0;
   margin: 0;
 }
+
+.tile {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  background-color: aquamarine;
+  text-align: center;
+  font-size: 60px;
+}
