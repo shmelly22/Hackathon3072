@@ -313,16 +313,23 @@ function move([row, col], direction, spaces, [newRow, newCol], newValue) {
 
 function changeTile(row, col, newValue) {
   //console.log(row.toString() + col.toString());
-  // if (grid[row][col] == 0) {
-  //   let tileImage = document.createElement("div");
-  //   tileImage.className = "tile";
-  //   document.getElementById("game").appendChild(tileImage);
-  //   tileImage.style.left = col * 150 + "px";
-  //   tileImage.style.top = row * 150 + "px";
-  // }
+  if (newValue == 0) {
+    tileToBeDeleted = document.getElementById(row.toString() + col.toString());
+    document.getElementById("gameContainer").removeChild(tileToBeDeleted);
+  } else if (grid[row][col] == 0) {
+    let tileImage = document.createElement("div");
+    tileImage.className = "tile";
+    tileImage.id = row.toString() + col.toString();
+    document.getElementById("gameContainer").appendChild(tileImage);
+    tileImage.style.left = col * 150 + "px";
+    tileImage.style.top = row * 150 + "px";
+    tileImage.innerHTML = newValue;
+  } else {
+    document.getElementById(row.toString() + col.toString()).innerHTML =
+      newValue;
+  }
   grid[row][col] = newValue;
-  document.getElementById(row.toString() + col.toString()).textContent =
-    newValue;
+  //document.getElementById(row.toString() + col.toString()).textContent = newValue;
 }
 
 //turn("right");
