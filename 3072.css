@@ -26,5 +26,12 @@ button {
 body {
   padding: 0;
   margin: 0;
-  background-color: beige;
+}
+
+.tile {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  background-color: aquamarine;
+  font-size: 60px;
 }
