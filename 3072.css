@@ -29,9 +29,14 @@ body {
 }
 
 .tile {
+  display: flex;
   width: 150px;
   height: 150px;
   position: absolute;
   background-color: aquamarine;
   font-size: 60px;
+  border-width: 1px;
+  border: solid black;
+  justify-content: center;
+  align-items: center;
 }
