@@ -30,11 +30,6 @@ function spawnRandomTiles() {
 }
 
 function resetGrid() {
-  for (let x = 0; x < 4; x++) {
-    for (let y = 0; y < 4; y++) {
-      changeTile(x, y, 0);
-    }
-  }
   changeTile(3, 0, 3);
   changeTile(3, 1, 3);
 }
@@ -318,6 +313,13 @@ function move([row, col], direction, spaces, [newRow, newCol], newValue) {
 
 function changeTile(row, col, newValue) {
   //console.log(row.toString() + col.toString());
+  // if (grid[row][col] == 0) {
+  //   let tileImage = document.createElement("div");
+  //   tileImage.className = "tile";
+  //   document.getElementById("game").appendChild(tileImage);
+  //   tileImage.style.left = col * 150 + "px";
+  //   tileImage.style.top = row * 150 + "px";
+  // }
   grid[row][col] = newValue;
   document.getElementById(row.toString() + col.toString()).textContent =
     newValue;
