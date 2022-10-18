@@ -330,24 +330,22 @@ function changeTile(row, col, newValue) {
       newValue;
     score = score + newValue;
     document.getElementById("score").innerHTML = "Score: " + score;
-    console.log(score);
+    console.log(score, highScore);
+    if (score > highScore) {
+      highScore = score;
+      document.getElementById("highScore").innerHTML =
+        "High Score: " + highScore;
+    }
   }
   grid[row][col] = newValue;
 
   //document.getElementById(row.toString() + col.toString()).textContent = newValue;
 }
 
-while (score > highScore) {
-  highScore = score;
-  document.getElementById("highScore").innerHTML = "High Score: " + highScore;
-}
-//turn("right");
-//turn("left");
-//turn("up");
-//turn("down");
-//console.log(grid);
-
-//test
+// while (score > highScore) {
+//   highScore = score;
+//   document.getElementById("highScore").innerHTML = "High Score: " + highScore;
+// }
 
 //detects when a key is pressed and calls turn()
 document.addEventListener("keydown", (event) => {
@@ -372,6 +370,8 @@ document.addEventListener("keydown", (event) => {
 });
 
 function resetGame() {
+  score = 0;
+  document.getElementById("score").innerHTML = "Score: " + score;
   grid = [];
   generateGrid();
   let gameContainer = document.getElementById("gameContainer");
