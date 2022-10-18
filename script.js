@@ -355,6 +355,19 @@ document.addEventListener("keydown", (event) => {
     case "ArrowRight":
       turn("right");
       break;
+    // case "Space":
+    //   resetGame();
+    //   break;
   }
   console.log(grid);
 });
+
+function resetGame() {
+  grid = [];
+  generateGrid();
+  let gameContainer = document.getElementById("gameContainer");
+  while (gameContainer.firstChild != undefined) {
+    gameContainer.removeChild(gameContainer.firstChild);
+  }
+  resetGrid();
+}
