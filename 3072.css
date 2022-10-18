@@ -8,32 +8,19 @@ div {
   background-color: beige;
 }
 
-div.game {
-  display: grid;
-  width: 50vw;
-  height: 50vh;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  width: 100px;
-  height: 100px;
-  justify-content: center;
-  align-content: center;
+.game-container {
+  width: 800px;
+  height: 800px;
+  position: relative;
+  background: rgb(90, 90, 90);
+  margin-left: auto;
+  margin-right: auto;
 }
-
-.game-cell {
-  width: 130px;
-  height: 130px;
-  border: 3px solid;
-  box-sizing: border-box;
-  font-size: 50px;
-}
-
-.left-half {
-  width: 100vw;
-  height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+button {
+  background-color: rgb(173, 173, 160);
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 body {
