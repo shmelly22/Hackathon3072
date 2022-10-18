@@ -10,7 +10,23 @@ function generateGrid() {
 generateGrid();
 
 function spawnRandomTiles() {
-  //needs to be made
+  let availableTiles = [];
+  for (let row in grid) {
+    for (let col in grid[row]) {
+      if (grid[row][col] == 0) {
+        availableTiles.push([row, col]);
+      }
+    }
+  }
+  console.log(availableTiles);
+  let spawnTile = Math.floor(availableTiles.length * Math.random());
+  let die = Math.floor(6 * Math.random());
+  console.log(availableTiles[spawnTile], die);
+  if (die == 5) {
+    changeTile(availableTiles[spawnTile][0], availableTiles[spawnTile][1], 6);
+  } else {
+    changeTile(availableTiles[spawnTile][0], availableTiles[spawnTile][1], 3);
+  }
 }
 
 function resetGrid() {
@@ -19,16 +35,14 @@ function resetGrid() {
       changeTile(x, y, 0);
     }
   }
-  grid[3][0] = 3;
   changeTile(3, 0, 3);
-  grid[3][1] = 3;
   changeTile(3, 1, 3);
 }
 
 resetGrid();
 
 function turn(direction) {
-  console.log("br");
+  let realMove = false;
   switch (direction) {
     case "right":
       for (let row = 0; row < grid.length; row++) {
@@ -55,8 +69,9 @@ function turn(direction) {
                     [row, colRight - 1],
                     grid[row][col]
                   );
-                  grid[row][colRight - 1] = grid[row][col];
-                  grid[row][col] = 0;
+                  realMove = true;
+                  //grid[row][colRight - 1] = grid[row][col];
+                  //grid[row][col] = 0;
                 }
                 break;
               }
@@ -69,8 +84,10 @@ function turn(direction) {
                   [row, colRight],
                   grid[row][colRight] * 2
                 );
-                grid[row][colRight] *= 2;
-                grid[row][col] = 0;
+                realMove = true;
+
+                //grid[row][colRight] *= 2;
+                //grid[row][col] = 0;
                 break;
               } else if (grid[row][colRight] != 0) {
                 //the values must be different and nonzero
@@ -83,8 +100,10 @@ function turn(direction) {
                     [row, colRight - 1],
                     grid[row][col]
                   );
-                  grid[row][colRight - 1] = grid[row][col];
-                  grid[row][col] = 0;
+                  realMove = true;
+
+                  //grid[row][colRight - 1] = grid[row][col];
+                  //grid[row][col] = 0;
                 }
                 break;
               }
@@ -112,8 +131,10 @@ function turn(direction) {
                     [row, colLeft + 1],
                     grid[row][col]
                   );
-                  grid[row][colLeft + 1] = grid[row][col];
-                  grid[row][col] = 0;
+                  realMove = true;
+
+                  //grid[row][colLeft + 1] = grid[row][col];
+                  //grid[row][col] = 0;
                 }
                 break;
               } else if (grid[row][colLeft] == grid[row][col]) {
@@ -125,8 +146,10 @@ function turn(direction) {
                   [row, colLeft],
                   grid[row][colLeft] * 2
                 );
-                grid[row][colLeft] *= 2;
-                grid[row][col] = 0;
+                realMove = true;
+
+                //grid[row][colLeft] *= 2;
+                //grid[row][col] = 0;
                 break;
               } else if (grid[row][colLeft] != 0) {
                 //the values must be different and nonzero
@@ -139,8 +162,10 @@ function turn(direction) {
                     [row, colLeft + 1],
                     grid[row][col]
                   );
-                  grid[row][colLeft + 1] = grid[row][col];
-                  grid[row][col] = 0;
+                  realMove = true;
+
+                  //grid[row][colLeft + 1] = grid[row][col];
+                  //grid[row][col] = 0;
                 }
                 break;
               }
@@ -169,8 +194,10 @@ function turn(direction) {
                     [rowAbove + 1, col],
                     grid[row][col]
                   );
-                  grid[rowAbove + 1][col] = grid[row][col];
-                  grid[row][col] = 0;
+                  realMove = true;
+
+                  //grid[rowAbove + 1][col] = grid[row][col];
+                  //grid[row][col] = 0;
                 }
                 break;
               }
@@ -183,8 +210,10 @@ function turn(direction) {
                   [rowAbove, col],
                   grid[rowAbove][col] * 2
                 );
-                grid[rowAbove][col] *= 2;
-                grid[row][col] = 0;
+                realMove = true;
+
+                //grid[rowAbove][col] *= 2;
+                //grid[row][col] = 0;
                 break;
               } else if (grid[rowAbove][col] != 0) {
                 //the values must be different and nonzero
@@ -197,8 +226,10 @@ function turn(direction) {
                     [rowAbove + 1, col],
                     grid[row][col]
                   );
-                  grid[rowAbove + 1][col] = grid[row][col];
-                  grid[row][col] = 0;
+                  realMove = true;
+
+                  //grid[rowAbove + 1][col] = grid[row][col];
+                  //grid[row][col] = 0;
                 }
                 break;
               }
@@ -227,8 +258,10 @@ function turn(direction) {
                     [rowBelow - 1, col],
                     grid[row][col]
                   );
-                  grid[rowBelow - 1][col] = grid[row][col];
-                  grid[row][col] = 0;
+                  realMove = true;
+
+                  //grid[rowBelow - 1][col] = grid[row][col];
+                  //grid[row][col] = 0;
                 }
                 break;
               }
@@ -241,8 +274,10 @@ function turn(direction) {
                   [rowBelow, col],
                   grid[rowBelow][col] * 2
                 );
-                grid[rowBelow][col] *= 2;
-                grid[row][col] = 0;
+                realMove = true;
+
+                //grid[rowBelow][col] *= 2;
+                //grid[row][col] = 0;
                 break;
               } else if (grid[rowBelow][col] != 0) {
                 //the values must be different and nonzero
@@ -255,8 +290,10 @@ function turn(direction) {
                     [rowBelow - 1, col],
                     grid[row][col]
                   );
-                  grid[rowBelow - 1][col] = grid[row][col];
-                  grid[row][col] = 0;
+                  realMove = true;
+
+                  //grid[rowBelow - 1][col] = grid[row][col];
+                  //grid[row][col] = 0;
                 }
                 break;
               }
@@ -266,36 +303,22 @@ function turn(direction) {
       }
       break;
   }
+  if (realMove) {
+    spawnRandomTiles();
+  }
 }
 
 function move([row, col], direction, spaces, [newRow, newCol], newValue) {
-  /* //changed parameters so this is redundant but im leaving it in just in case
-  let newTile = [];
-  switch (direction) {
-    case "right":
-      newTile = [row, col + spaces];
-      break;
-    case "left":
-      newTile = [row, col - spaces];
-      break;
-    case "up":
-      newTile = [row + spaces, col];
-      break;
-    case "down":
-      newTile = [row - spaces, col];
-      break;
-  }
-  */
   //console.log("moved");
   //console.log("moved", row, col, direction, spaces);
 
   changeTile(newRow, newCol, newValue);
   changeTile(row, col, 0);
-  spawnRandomTiles();
 }
 
 function changeTile(row, col, newValue) {
   //console.log(row.toString() + col.toString());
+  grid[row][col] = newValue;
   document.getElementById(row.toString() + col.toString()).textContent =
     newValue;
 }
