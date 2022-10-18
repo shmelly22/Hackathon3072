@@ -1,5 +1,6 @@
 let grid = [];
-
+let score = 0;
+let highScroe = 0;
 //generates a 2d array filled with 0
 function generateGrid() {
   for (let i = 0; i < 4; i++) {
@@ -327,6 +328,9 @@ function changeTile(row, col, newValue) {
   } else {
     document.getElementById(row.toString() + col.toString()).innerHTML =
       newValue;
+    score = score + newValue;
+    document.getElementById("score").innerHTML = "Score: " + score;
+    console.log(score);
   }
   grid[row][col] = newValue;
   //document.getElementById(row.toString() + col.toString()).textContent = newValue;
