@@ -9,8 +9,8 @@ div {
 }
 
 .game-container {
-  width: 800px;
-  height: 800px;
+  width: 600px;
+  height: 600px;
   position: relative;
   background: rgb(90, 90, 90);
   margin-left: auto;
