@@ -1,11 +1,9 @@
 header {
   text-align: center;
   font-size: 70px;
-  background-color: rgb(173, 173, 160);
-  color: beige;
-}
-div {
-  background-color: beige;
+  background-color: rgb(212, 212, 192);
+  color: rgb(90, 90, 90);
+  padding-bottom: 5px;
 }
 
 .game-container {
@@ -17,16 +15,19 @@ div {
   margin-right: auto;
 }
 button {
-  background-color: rgb(173, 173, 160);
+  background-color: rgb(90, 90, 90);
   margin-left: auto;
   margin-right: auto;
   display: block;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  color: rgb(212, 212, 192);
 }
 
 body {
   padding: 0;
   margin: 0;
-  background-color: beige;
+  background-color: rgb(212, 212, 192);
 }
 
 .tile {
@@ -40,4 +41,37 @@ body {
   border: solid black;
   justify-content: center;
   align-items: center;
+}
+
+#explain {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: xx-large;
+  background-color: rgb(90, 90, 90);
+  color: rgb(212, 212, 192);
+  border: solid black;
+  margin-top: 3px;
+}
+
+#score {
+  padding: 10px;
+  text-align: center;
+  background-color: rgb(90, 90, 90);
+  color: rgb(212, 212, 192);
+  font-size: larger;
+  border-left: solid black;
+  border-right: solid black;
+  border-bottom: solid black;
+}
+
+#highScore {
+  padding: 10px;
+  text-align: center;
+  background-color: rgb(90, 90, 90);
+  color: rgb(212, 212, 192);
+  font-size: larger;
+  border-left: solid black;
+  border-right: solid black;
+  border-top: solid black;
 }
