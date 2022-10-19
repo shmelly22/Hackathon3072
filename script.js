@@ -381,6 +381,7 @@ function resetGame() {
   resetGrid();
 }
 
+//disable arrow key scroll
 window.addEventListener(
   "keydown",
   function (e) {
