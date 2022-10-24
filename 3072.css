@@ -8,8 +8,8 @@ header {
 }
 
 .game-container {
-  width: 604px;
-  height: 604px;
+  width: 602px;
+  height: 602px;
   position: relative;
   background: rgb(90, 90, 90);
   margin-left: auto;
@@ -38,8 +38,8 @@ body {
 
 .tile {
   display: flex;
-  width: 150px;
-  height: 150px;
+  width: 148px;
+  height: 148px;
   position: absolute;
   background-color: aquamarine;
   font-size: 70px;
