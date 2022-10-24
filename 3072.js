@@ -25,10 +25,10 @@ function spawnRandomTiles() {
   let die = Math.floor(6 * Math.random());
   //console.log(availableTiles[spawnTile], die);
   if (die == 5) {
-    changeTile(availableTiles[spawnTile][0], availableTiles[spawnTile][1], 6);
+    createTile(availableTiles[spawnTile][0], availableTiles[spawnTile][1], 6);
     grid[availableTiles[spawnTile][0]][availableTiles[spawnTile][1]] = 6;
   } else {
-    changeTile(availableTiles[spawnTile][0], availableTiles[spawnTile][1], 3);
+    createTile(availableTiles[spawnTile][0], availableTiles[spawnTile][1], 3);
     grid[availableTiles[spawnTile][0]][availableTiles[spawnTile][1]] = 3;
   }
 }
@@ -376,6 +376,36 @@ function move([row, col], direction, spaces, [newRow, newCol], newValue) {
 
   //changeTile(row, col, 0);
   //changeTile(newRow, newCol, newValue);
+}
+
+function createTile(row, col, newValue) {
+  let tileImage = document.createElement("div");
+  tileImage.className = "tile";
+  tileImage.id = row.toString() + col.toString();
+  document.getElementById("gameContainer").appendChild(tileImage);
+  tileImage.style.left = col * 150 + "px";
+  tileImage.style.top = row * 150 + "px";
+  tileImage.innerHTML = newValue;
+
+  let flashColor = 261120;
+  let normalColor = 261375;
+  tileImage.style.backgroundColor = "#" + flashColor.toString(16);
+  let startTime = Date.now();
+  let timer = setInterval(() => {
+    let timePassed = Date.now() - startTime;
+    if (timePassed > 100) {
+      clearInterval(timer);
+      tileImage.style.backgroundColor = "#03fcff";
+    } else {
+      let newBG =
+        "0" +
+        Math.floor(
+          normalColor - (normalColor - flashColor) * (1 - timePassed / 100)
+        ).toString(16);
+      tileImage.style.backgroundColor = "#" + newBG;
+      console.log(newBG);
+    }
+  }, 5);
 }
 
 function changeTile(row, col, newValue, moving) {
