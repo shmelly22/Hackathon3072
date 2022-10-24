@@ -26,14 +26,18 @@ function spawnRandomTiles() {
   //console.log(availableTiles[spawnTile], die);
   if (die == 5) {
     changeTile(availableTiles[spawnTile][0], availableTiles[spawnTile][1], 6);
+    grid[availableTiles[spawnTile][0]][availableTiles[spawnTile][1]] = 6;
   } else {
     changeTile(availableTiles[spawnTile][0], availableTiles[spawnTile][1], 3);
+    grid[availableTiles[spawnTile][0]][availableTiles[spawnTile][1]] = 3;
   }
 }
 
 function resetGrid() {
   changeTile(3, 0, 3);
   changeTile(3, 1, 3);
+  grid[3][0] = 3;
+  grid[3][1] = 3;
 }
 
 resetGrid();
@@ -307,70 +311,91 @@ function turn(direction) {
 
 function move([row, col], direction, spaces, [newRow, newCol], newValue) {
   //console.log("moved");
-  console.log("moved", row, col, direction, spaces);
+  console.log("moved", row, col, direction, spaces, "new value:", newValue);
   console.trace();
-  changeTile(newRow, newCol, newValue);
+  //changeTile(newRow, newCol, newValue);
+
+  grid[row][col] = 0;
+  grid[newRow][newCol] = newValue;
+
+  console.log(grid);
 
   let ogTile = document.getElementById(row.toString() + col.toString());
+  ogTile.id = row.toString() + col.toString() + "moving";
+  console.log(ogTile);
 
-  // if (direction == "up") {
-  //   let startTime = Date.now();
-  //   let timer = setInterval(() => {
-  //     let timePassed = Date.now() - startTime;
-  //     if (timePassed > 500) {
-  //       clearInterval(timer);
-  //       changeTile(row, col, 0);
-  //     } else {
-  //       ogTile.style.top = row * 150 - (spaces * timePassed * 150) / 500 + "px";
-  //     }
-  //   }, 20);
-  // } else if (direction == "down") {
-  //   let startTime = Date.now();
-  //   let timer = setInterval(() => {
-  //     let timePassed = Date.now() - startTime;
-  //     if (timePassed > 100) {
-  //       clearInterval(timer);
-  //       changeTile(row, col, 0);
-  //     } else {
-  //       ogTile.style.top = row * 150 + (spaces * timePassed * 150) / 100 + "px";
-  //     }
-  //   }, 10);
-  // } else if (direction == "right") {
-  //   let startTime = Date.now();
-  //   let timer = setInterval(() => {
-  //     let timePassed = Date.now() - startTime;
-  //     if (timePassed > 500) {
-  //       clearInterval(timer);
-  //       changeTile(row, col, 0);
-  //     } else {
-  //       ogTile.style.left =
-  //         col * 150 + (spaces * timePassed * 150) / 500 + "px";
-  //     }
-  //   }, 20);
-  // } else if (direction == "left") {
-  //   let startTime = Date.now();
-  //   let timer = setInterval(() => {
-  //     let timePassed = Date.now() - startTime;
-  //     if (timePassed > 100) {
-  //       clearInterval(timer);
-  //       changeTile(row, col, 0);
-  //     } else {
-  //       ogTile.style.left =
-  //         col * 150 - (spaces * timePassed * 150) / 100 + "px";
-  //     }
-  //   }, 20);
-  //}
+  if (direction == "up") {
+    let startTime = Date.now();
+    let timer = setInterval(() => {
+      let timePassed = Date.now() - startTime;
+      if (timePassed > 60) {
+        clearInterval(timer);
+        changeTile(row, col, 0, true);
+        changeTile(newRow, newCol, newValue, false);
+      } else {
+        ogTile.style.top = row * 150 - (spaces * timePassed * 150) / 60 + "px";
+      }
+    }, 5);
+  } else if (direction == "down") {
+    let startTime = Date.now();
+    let timer = setInterval(() => {
+      let timePassed = Date.now() - startTime;
+      if (timePassed > 60) {
+        clearInterval(timer);
+        changeTile(row, col, 0, true);
+        changeTile(newRow, newCol, newValue, false);
+      } else {
+        ogTile.style.top = row * 150 + (spaces * timePassed * 150) / 60 + "px";
+      }
+    }, 5);
+  } else if (direction == "right") {
+    let startTime = Date.now();
+    let timer = setInterval(() => {
+      let timePassed = Date.now() - startTime;
+      if (timePassed > 60) {
+        clearInterval(timer);
+        changeTile(row, col, 0, true);
+        changeTile(newRow, newCol, newValue, false);
+      } else {
+        ogTile.style.left = col * 150 + (spaces * timePassed * 150) / 60 + "px";
+      }
+    }, 5);
+  } else if (direction == "left") {
+    let startTime = Date.now();
+    let timer = setInterval(() => {
+      let timePassed = Date.now() - startTime;
+      if (timePassed > 60) {
+        clearInterval(timer);
+        changeTile(row, col, 0, true);
+        changeTile(newRow, newCol, newValue, false);
+      } else {
+        ogTile.style.left = col * 150 - (spaces * timePassed * 150) / 60 + "px";
+      }
+    }, 5);
+  }
 
-  changeTile(row, col, 0);
+  //changeTile(row, col, 0);
   //changeTile(newRow, newCol, newValue);
 }
 
-function changeTile(row, col, newValue) {
-  //console.log(row.toString() + col.toString());
+function changeTile(row, col, newValue, moving) {
+  console.log(
+    row.toString() + col.toString() + moving + " changed to " + newValue
+  );
   if (newValue == 0) {
-    tileToBeDeleted = document.getElementById(row.toString() + col.toString());
+    if (moving) {
+      tileToBeDeleted = document.getElementById(
+        row.toString() + col.toString() + "moving"
+      );
+    } else {
+      tileToBeDeleted = document.getElementById(
+        row.toString() + col.toString()
+      );
+    }
     document.getElementById("gameContainer").removeChild(tileToBeDeleted);
-  } else if (grid[row][col] == 0) {
+  } else if (
+    document.getElementById(row.toString() + col.toString()) == undefined
+  ) {
     let tileImage = document.createElement("div");
     tileImage.className = "tile";
     tileImage.id = row.toString() + col.toString();
@@ -390,7 +415,6 @@ function changeTile(row, col, newValue) {
         "High Score: " + highScore;
     }
   }
-  grid[row][col] = newValue;
 
   //document.getElementById(row.toString() + col.toString()).textContent = newValue;
 }
