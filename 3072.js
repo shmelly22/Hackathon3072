@@ -385,7 +385,7 @@ function createTile(row, col, newValue) {
   tileImage.id = row.toString() + col.toString();
   tileImage.style.left = col * 150 + "px";
   tileImage.style.top = row * 150 + "px";
-  tileImage.style.filter = "opacity:(0%)";
+  tileImage.style.filter = "opacity(0%)";
 
   tileImage.innerHTML = newValue;
   document.getElementById("gameContainer").appendChild(tileImage);
@@ -405,7 +405,7 @@ function createTile(row, col, newValue) {
       //   ).toString(16);
       // tileImage.style.backgroundColor = "#" + newBG;
       // console.log(newBG);
-      tileImage.style.filter = `opacity(${timePassed}%)`;
+      tileImage.style.filter = `opacity(${timePassed / 1}%)`;
     }
   }, 5);
 }
