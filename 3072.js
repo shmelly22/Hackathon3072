@@ -1,6 +1,7 @@
 let grid = [];
 let score = 0;
 let highScore = 0;
+
 //generates a 2d array filled with 0
 function generateGrid() {
   for (let i = 0; i < 4; i++) {
@@ -19,10 +20,10 @@ function spawnRandomTiles() {
       }
     }
   }
-  console.log(availableTiles);
+  //console.log(availableTiles);
   let spawnTile = Math.floor(availableTiles.length * Math.random());
   let die = Math.floor(6 * Math.random());
-  console.log(availableTiles[spawnTile], die);
+  //console.log(availableTiles[spawnTile], die);
   if (die == 5) {
     changeTile(availableTiles[spawnTile][0], availableTiles[spawnTile][1], 6);
   } else {
@@ -76,7 +77,7 @@ function turn(direction) {
                 move(
                   [row, col],
                   direction,
-                  colRight - col - 1,
+                  colRight - col,
                   [row, colRight],
                   grid[row][colRight] * 2
                 );
@@ -138,7 +139,7 @@ function turn(direction) {
                 move(
                   [row, col],
                   direction,
-                  col - colLeft + 1,
+                  col - colLeft,
                   [row, colLeft],
                   grid[row][colLeft] * 2
                 );
@@ -306,10 +307,62 @@ function turn(direction) {
 
 function move([row, col], direction, spaces, [newRow, newCol], newValue) {
   //console.log("moved");
-  //console.log("moved", row, col, direction, spaces);
-
+  console.log("moved", row, col, direction, spaces);
+  console.trace();
   changeTile(newRow, newCol, newValue);
+
+  let ogTile = document.getElementById(row.toString() + col.toString());
+
+  // if (direction == "up") {
+  //   let startTime = Date.now();
+  //   let timer = setInterval(() => {
+  //     let timePassed = Date.now() - startTime;
+  //     if (timePassed > 500) {
+  //       clearInterval(timer);
+  //       changeTile(row, col, 0);
+  //     } else {
+  //       ogTile.style.top = row * 150 - (spaces * timePassed * 150) / 500 + "px";
+  //     }
+  //   }, 20);
+  // } else if (direction == "down") {
+  //   let startTime = Date.now();
+  //   let timer = setInterval(() => {
+  //     let timePassed = Date.now() - startTime;
+  //     if (timePassed > 100) {
+  //       clearInterval(timer);
+  //       changeTile(row, col, 0);
+  //     } else {
+  //       ogTile.style.top = row * 150 + (spaces * timePassed * 150) / 100 + "px";
+  //     }
+  //   }, 10);
+  // } else if (direction == "right") {
+  //   let startTime = Date.now();
+  //   let timer = setInterval(() => {
+  //     let timePassed = Date.now() - startTime;
+  //     if (timePassed > 500) {
+  //       clearInterval(timer);
+  //       changeTile(row, col, 0);
+  //     } else {
+  //       ogTile.style.left =
+  //         col * 150 + (spaces * timePassed * 150) / 500 + "px";
+  //     }
+  //   }, 20);
+  // } else if (direction == "left") {
+  //   let startTime = Date.now();
+  //   let timer = setInterval(() => {
+  //     let timePassed = Date.now() - startTime;
+  //     if (timePassed > 100) {
+  //       clearInterval(timer);
+  //       changeTile(row, col, 0);
+  //     } else {
+  //       ogTile.style.left =
+  //         col * 150 - (spaces * timePassed * 150) / 100 + "px";
+  //     }
+  //   }, 20);
+  //}
+
   changeTile(row, col, 0);
+  //changeTile(newRow, newCol, newValue);
 }
 
 function changeTile(row, col, newValue) {
@@ -330,7 +383,7 @@ function changeTile(row, col, newValue) {
       newValue;
     score = score + newValue;
     document.getElementById("score").innerHTML = "Score: " + score;
-    console.log(score, highScore);
+    //console.log(score, highScore);
     if (score > highScore) {
       highScore = score;
       document.getElementById("highScore").innerHTML =
@@ -366,7 +419,7 @@ document.addEventListener("keydown", (event) => {
     //   resetGame();
     //   break;
   }
-  console.log(grid);
+  //console.log(grid);
 });
 
 function resetGame() {
