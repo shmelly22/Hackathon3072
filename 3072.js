@@ -379,31 +379,33 @@ function move([row, col], direction, spaces, [newRow, newCol], newValue) {
 }
 
 function createTile(row, col, newValue) {
+  console.log("createeeeeee row: " + row + " col: " + col);
   let tileImage = document.createElement("div");
   tileImage.className = "tile";
   tileImage.id = row.toString() + col.toString();
-  document.getElementById("gameContainer").appendChild(tileImage);
   tileImage.style.left = col * 150 + "px";
   tileImage.style.top = row * 150 + "px";
-  tileImage.innerHTML = newValue;
+  tileImage.style.filter = "opacity:(0%)";
 
-  let flashColor = 261120;
-  let normalColor = 261375;
-  tileImage.style.backgroundColor = "#" + flashColor.toString(16);
+  tileImage.innerHTML = newValue;
+  document.getElementById("gameContainer").appendChild(tileImage);
+
   let startTime = Date.now();
   let timer = setInterval(() => {
     let timePassed = Date.now() - startTime;
     if (timePassed > 100) {
       clearInterval(timer);
-      tileImage.style.backgroundColor = "#03fcff";
+      //tileImage.style.backgroundColor = "#03fcff";
+      tileImage.style.filter = `opacity(100%)`;
     } else {
-      let newBG =
-        "0" +
-        Math.floor(
-          normalColor - (normalColor - flashColor) * (1 - timePassed / 100)
-        ).toString(16);
-      tileImage.style.backgroundColor = "#" + newBG;
-      console.log(newBG);
+      // let newBG =
+      //   "0" +
+      //   Math.floor(
+      //     normalColor - (normalColor - flashColor) * (1 - timePassed / 100)
+      //   ).toString(16);
+      // tileImage.style.backgroundColor = "#" + newBG;
+      // console.log(newBG);
+      tileImage.style.filter = `opacity(${timePassed}%)`;
     }
   }, 5);
 }
