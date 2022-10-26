@@ -314,23 +314,26 @@ function turn(direction) {
   }
   if (realMove) {
     spawnRandomTiles();
+    if (testForDeath()) {
+      alert("dead");
+    }
   }
 }
 
 function move([row, col], direction, spaces, [newRow, newCol], newValue) {
   //console.log("moved");
-  console.log("moved", row, col, direction, spaces, "new value:", newValue);
-  console.trace();
+  //console.log("moved", row, col, direction, spaces, "new value:", newValue);
+  //console.trace();
   //changeTile(newRow, newCol, newValue);
 
   grid[row][col] = 0;
   grid[newRow][newCol] = newValue;
 
-  console.log(grid);
+  //console.log(grid);
 
   let ogTile = document.getElementById(row.toString() + col.toString());
   ogTile.id = row.toString() + col.toString() + "moving";
-  console.log(ogTile);
+  //console.log(ogTile);
 
   if (direction == "up") {
     let startTime = Date.now();
@@ -429,7 +432,7 @@ function clearIntervalAndChangeTiles([
 }
 
 function createTile(row, col, newValue) {
-  console.log("createeeeeee row: " + row + " col: " + col);
+  //console.log("createeeeeee row: " + row + " col: " + col);
   let tileImage = document.createElement("div");
   tileImage.className = "tile";
   tileImage.id = row.toString() + col.toString();
@@ -461,9 +464,7 @@ function createTile(row, col, newValue) {
 }
 
 function changeTile(row, col, newValue, moving) {
-  console.log(
-    row.toString() + col.toString() + moving + " changed to " + newValue
-  );
+  //console.log(row.toString() + col.toString() + moving + " changed to " + newValue);
   if (newValue == 0) {
     if (moving) {
       tileToBeDeleted = document.getElementById(
@@ -525,7 +526,7 @@ document.addEventListener("keydown", (event) => {
     //   resetGame();
     //   break;
   }
-  //console.log(grid);
+  console.log(grid);
 });
 
 function resetGame() {
@@ -537,7 +538,7 @@ function resetGame() {
   while (gameContainer.firstChild != undefined) {
     gameContainer.removeChild(gameContainer.firstChild);
   }
-  resetGrid();
+  //resetGrid();
 }
 
 //disable arrow key scroll
@@ -554,3 +555,24 @@ window.addEventListener(
   },
   false
 );
+
+function testForDeath() {
+  for (let row in grid) {
+    for (let col in grid[row]) {
+      if (grid[+row][+col] == 0) {
+        return false;
+      }
+      if (+row < 3) {
+        if (grid[+row][+col] == grid[+row + 1][+col]) {
+          return false;
+        }
+        if (+col < 3) {
+          if (grid[+row][+col] == grid[+row][+col + 1]) {
+            return false;
+          }
+        }
+      }
+    }
+  }
+  return true;
+}
