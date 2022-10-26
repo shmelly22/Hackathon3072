@@ -2,6 +2,8 @@ let grid = [];
 let score = 0;
 let highScore = 0;
 
+let movements = {};
+
 //generates a 2d array filled with 0
 function generateGrid() {
   for (let i = 0; i < 4; i++) {
@@ -42,7 +44,13 @@ function resetGrid() {
 
 resetGrid();
 
+//let cutAnimation = false;
+
 function turn(direction) {
+  for (let timer in movements) {
+    clearIntervalAndChangeTiles([timer, ...movements[timer]]);
+    delete movements[timer];
+  }
   let realMove = false;
   switch (direction) {
     case "right":
@@ -329,53 +337,95 @@ function move([row, col], direction, spaces, [newRow, newCol], newValue) {
     let timer = setInterval(() => {
       let timePassed = Date.now() - startTime;
       if (timePassed > 60) {
-        clearInterval(timer);
-        changeTile(row, col, 0, true);
-        changeTile(newRow, newCol, newValue, false);
+        clearIntervalAndChangeTiles([
+          timer,
+          row,
+          col,
+          newRow,
+          newCol,
+          newValue,
+        ]);
+        delete movements[timer];
       } else {
         ogTile.style.top = row * 150 - (spaces * timePassed * 150) / 60 + "px";
       }
     }, 5);
+    movements[timer] = [row, col, newRow, newCol, newValue];
   } else if (direction == "down") {
     let startTime = Date.now();
     let timer = setInterval(() => {
       let timePassed = Date.now() - startTime;
       if (timePassed > 60) {
-        clearInterval(timer);
-        changeTile(row, col, 0, true);
-        changeTile(newRow, newCol, newValue, false);
+        clearIntervalAndChangeTiles([
+          timer,
+          row,
+          col,
+          newRow,
+          newCol,
+          newValue,
+        ]);
+        delete movements[timer];
       } else {
         ogTile.style.top = row * 150 + (spaces * timePassed * 150) / 60 + "px";
       }
     }, 5);
+    movements[timer] = [row, col, newRow, newCol, newValue];
   } else if (direction == "right") {
     let startTime = Date.now();
     let timer = setInterval(() => {
       let timePassed = Date.now() - startTime;
       if (timePassed > 60) {
-        clearInterval(timer);
-        changeTile(row, col, 0, true);
-        changeTile(newRow, newCol, newValue, false);
+        clearIntervalAndChangeTiles([
+          timer,
+          row,
+          col,
+          newRow,
+          newCol,
+          newValue,
+        ]);
+        delete movements[timer];
       } else {
         ogTile.style.left = col * 150 + (spaces * timePassed * 150) / 60 + "px";
       }
     }, 5);
+    movements[timer] = [row, col, newRow, newCol, newValue];
   } else if (direction == "left") {
     let startTime = Date.now();
     let timer = setInterval(() => {
       let timePassed = Date.now() - startTime;
       if (timePassed > 60) {
-        clearInterval(timer);
-        changeTile(row, col, 0, true);
-        changeTile(newRow, newCol, newValue, false);
+        clearIntervalAndChangeTiles([
+          timer,
+          row,
+          col,
+          newRow,
+          newCol,
+          newValue,
+        ]);
+        delete movements[timer];
       } else {
         ogTile.style.left = col * 150 - (spaces * timePassed * 150) / 60 + "px";
       }
     }, 5);
+    movements[timer] = [row, col, newRow, newCol, newValue];
   }
-
   //changeTile(row, col, 0);
   //changeTile(newRow, newCol, newValue);
+}
+// clearIntervalAndChangeTiles([timer, ...movements[timer]]);
+// delete movements[timer];
+
+function clearIntervalAndChangeTiles([
+  timer,
+  row,
+  col,
+  newRow,
+  newCol,
+  newValue,
+]) {
+  clearInterval(timer);
+  changeTile(row, col, 0, true);
+  changeTile(newRow, newCol, newValue, false);
 }
 
 function createTile(row, col, newValue) {
