@@ -10,6 +10,8 @@ function generateGrid() {
     //array.fill fills the array with 0s
     grid.push(new Array(4).fill(0));
   }
+  spawnRandomTiles();
+  spawnRandomTiles();
 }
 generateGrid();
 
@@ -34,15 +36,6 @@ function spawnRandomTiles() {
     grid[availableTiles[spawnTile][0]][availableTiles[spawnTile][1]] = 3;
   }
 }
-
-function resetGrid() {
-  changeTile(3, 0, 3);
-  changeTile(3, 1, 3);
-  grid[3][0] = 3;
-  grid[3][1] = 3;
-}
-
-resetGrid();
 
 //let cutAnimation = false;
 
@@ -315,6 +308,7 @@ function turn(direction) {
   if (realMove) {
     spawnRandomTiles();
     if (testForDeath()) {
+      clearIntervalAndChangeTiles();
       alert("dead");
     }
   }
@@ -497,6 +491,9 @@ function changeTile(row, col, newValue, moving) {
       document.getElementById("highScore").innerHTML =
         "High Score: " + highScore;
     }
+    if (newValue == 3072) {
+      alert("you win gg\nkeep going");
+    }
   }
 
   //document.getElementById(row.toString() + col.toString()).textContent = newValue;
@@ -526,7 +523,7 @@ document.addEventListener("keydown", (event) => {
     //   resetGame();
     //   break;
   }
-  console.log(grid);
+  //console.log(grid);
 });
 
 function resetGame() {
