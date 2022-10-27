@@ -308,9 +308,18 @@ function turn(direction) {
   if (realMove) {
     spawnRandomTiles();
     if (testForDeath()) {
-      clearIntervalAndChangeTiles();
-      alert("dead");
+      checkOutOfMoves();
     }
+  }
+}
+
+function checkOutOfMoves() {
+  if (Object.keys(movements).length > 0) {
+    window.setTimeout(checkOutOfMoves, 20);
+  } else {
+    console.log(movements);
+    console.log();
+    alert("death");
   }
 }
 
