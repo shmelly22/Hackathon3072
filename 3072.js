@@ -10,10 +10,15 @@ function generateGrid() {
     //array.fill fills the array with 0s
     grid.push(new Array(4).fill(0));
   }
+}
+
+function resetGrid() {
   spawnRandomTiles();
   spawnRandomTiles();
 }
+
 generateGrid();
+resetGrid();
 
 function spawnRandomTiles() {
   let availableTiles = [];
@@ -544,7 +549,7 @@ function resetGame() {
   while (gameContainer.firstChild != undefined) {
     gameContainer.removeChild(gameContainer.firstChild);
   }
-  //resetGrid();
+  resetGrid();
 }
 
 //disable arrow key scroll
