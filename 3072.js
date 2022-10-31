@@ -520,7 +520,7 @@ function changeTile(row, col, newValue, moving) {
 
 //detects when a key is pressed and calls turn()
 document.addEventListener("keydown", (event) => {
-  switch (event.code) {
+  switch (event.key) {
     case "ArrowUp":
       turn("up");
       break;
@@ -531,6 +531,18 @@ document.addEventListener("keydown", (event) => {
       turn("left");
       break;
     case "ArrowRight":
+      turn("right");
+      break;
+    case "w":
+      turn("up");
+      break;
+    case "s":
+      turn("down");
+      break;
+    case "a":
+      turn("left");
+      break;
+    case "d":
       turn("right");
       break;
     // case "Space":
